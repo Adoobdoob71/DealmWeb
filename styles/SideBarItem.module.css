@@ -1,0 +1,56 @@
+.side_bar_item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-inline: 8px;
+  padding-block: 10px;
+  user-select: none;
+}
+
+.side_bar_item:hover {
+  background-color: #f9f9f9;
+}
+
+.profile_image {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  margin-right: 10px;
+}
+
+.user_box {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-right: 8px;
+}
+
+.nickname {
+  font-size: 14px;
+  color: #000000;
+  font-weight: bold;
+}
+
+.nickname:hover {
+  text-decoration: underline;
+}
+
+.description {
+  font-size: 12px;
+  color: #000000;
+  margin-top: 2px;
+}
+
+@media only screen and (max-width: 700px) {
+  .profile_image {
+    display: none;
+  }
+  .description {
+    display: none;
+  }
+  .nickname {
+    font-size: 12px;
+    align-self: center;
+    justify-self: center;
+  }
+}

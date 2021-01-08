@@ -1,0 +1,154 @@
+.main_div {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  padding-inline: 15vw;
+  margin-block: 12px;
+}
+
+.whole_window {
+  border-radius: 8px;
+  box-shadow: 0 0px 1.5px rgba(0, 0, 0, 0.05), 0 0px 15px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.contacts_window {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  border-left: 0.5px solid #dbdbdb;
+}
+
+.contacts_top {
+  background-color: #f8f8f8;
+  border-top-right-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  padding-inline: 12px;
+}
+
+.contacts_top_title {
+  font-size: 1.25vw;
+  color: #000000;
+  user-select: none;
+  font-weight: bold;
+}
+
+.contacts_rest {
+  background-color: #ffffff;
+  border-bottom-right-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  overflow-y: auto;
+}
+
+.chat_window {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+}
+
+.chat_window_top {
+  background-color: #f8f8f8;
+  border-top-left-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  padding-inline: 8px;
+  padding-block: 3px;
+}
+
+.user_box {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile_image {
+  width: 2.25vw;
+  height: 2.25vw;
+  border-radius: 1.125vw;
+  margin-right: 10px;
+}
+
+.nickname {
+  font-size: 1.25vw;
+  color: #000000;
+  font-weight: bold;
+}
+
+.status {
+  font-size: 0.75vw;
+  color: #959595;
+  margin-left: 8px;
+}
+
+.status_color {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: #77ff77;
+}
+.chat_window_messages {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 12px;
+  height: calc(80vh - 44px);
+  overflow-y: auto;
+}
+
+.chat_window_bottom {
+  background-color: #f8f8f8;
+  border-bottom-left-radius: 8px;
+  align-items: center;
+  justify-self: end;
+  display: flex;
+  padding-inline: 10px;
+  padding-block: 8px;
+}
+
+.chat_window_text_box {
+  border: 0.5px solid #7777ff;
+  border-radius: 12px;
+  background-color: #ffffff;
+  padding: 6px;
+  flex: 1;
+  margin-inline: 8px;
+  color: #000000;
+  font-size: 12px;
+  outline: none;
+}
+
+@media only screen and (max-width: 1100px) {
+  .nickname {
+    font-size: 16px;
+  }
+  .status {
+    font-size: 12px;
+  }
+  .profile_image {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+  }
+  .contacts_top_title {
+    font-size: 18px;
+  }
+  .main_div {
+    padding-inline: 8px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .contacts_top_title {
+    font-size: 14px;
+  }
+}

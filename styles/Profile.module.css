@@ -1,0 +1,163 @@
+.mainDiv {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  padding-inline: 15vw;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.edit_profile {
+  margin-left: calc(8vw + 24px);
+}
+
+.nav_bar {
+  display: flex;
+  flex-direction: row;
+  width: fit-content;
+  align-self: center;
+  justify-content: center;
+  border: 0.5px solid #959595;
+  border-radius: 4px;
+  margin-top: 64px;
+}
+
+.nav_bar_item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  user-select: none;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.nav_bar_item:hover {
+  background-color: #e5e5e5;
+}
+
+.nav_bar_item:active {
+  background-color: #e0e0e0;
+}
+.posts_tab {
+  color: #000000;
+  font-size: 14px;
+  margin-left: 8px;
+}
+.posts_div {
+}
+
+.profile_image {
+  width: 8vw;
+  height: 8vw;
+  border-radius: 4vw;
+}
+
+.user_box {
+  display: flex;
+  flex-direction: column;
+  margin-inline: 24px;
+  flex: 1;
+}
+
+.nickname {
+  font-size: 1.5vw;
+  color: #000000;
+  font-weight: bold;
+}
+
+.description {
+  font-size: 1vw;
+  color: #000000;
+  margin-top: 8px;
+}
+
+.follow_details {
+  display: flex;
+  flex-direction: column;
+}
+
+.follow_details_child {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4px;
+}
+
+.follow_details_title {
+  font-size: 1.25vw;
+  color: #000000;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.follow_details_number {
+  font-size: 1vw;
+  color: #000000;
+}
+
+.posts_div {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+}
+
+@media only screen and (max-width: 1100px) {
+  .header {
+    padding-inline: 2vw;
+  }
+  .profile_image {
+    width: 112px;
+    height: 112px;
+    border-radius: 56px;
+  }
+  .nickname {
+    font-size: 18px;
+  }
+  .description {
+    font-size: 14px;
+  }
+  .follow_details_title {
+    font-size: 16px;
+  }
+  .follow_details_number {
+    font-size: 14px;
+  }
+  .mainDiv {
+    padding-inline: 2vw;
+  }
+  .edit_profile {
+    margin-left: 136px;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .header {
+    padding-inline: 8px;
+  }
+  .profile_image {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+  }
+  .mainDiv {
+    padding-inline: 2vw;
+  }
+  .nickname {
+    font-size: 16px;
+  }
+  .description {
+    font-size: 12px;
+  }
+  .follow_details_title {
+    font-size: 14px;
+  }
+  .follow_details_number {
+    font-size: 12px;
+  }
+  .edit_profile {
+    margin-left: 104px;
+  }
+}
