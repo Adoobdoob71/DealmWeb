@@ -18,6 +18,7 @@
 .nav_bar {
   display: flex;
   flex-direction: row;
+  background-color: #ffffff;
   width: fit-content;
   align-self: center;
   justify-content: center;

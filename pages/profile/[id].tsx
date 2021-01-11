@@ -10,12 +10,14 @@ import { colors } from "../../styles/colors";
 import { useState } from "react";
 import PostCard from "../../components/postCard";
 import PostSmall from "../../components/postSmall";
+import { app } from "../_app";
 
 export default function Profile() {
   const [tab, setTab] = useState<string>("posts");
   const router = useRouter();
   const { id } = router.query;
   const toggleTab = () => setTab("posts");
+  // console.log(app.allUsers);
   return (
     <>
       <Head>

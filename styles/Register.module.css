@@ -1,0 +1,39 @@
+.main_div {
+  padding-inline: 15vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.title {
+  font-size: 3vw;
+  color: #000000;
+  margin-bottom: 16px;
+}
+
+.input {
+  color: #000000;
+  width: fit-content;
+  font-size: 1vw;
+  background: none;
+  background-color: #ffffff;
+  margin-right: 12px;
+  outline: none;
+  border: 1px solid #25274d;
+  border-radius: 6px;
+  padding-inline: 10px;
+  padding-block: 8px;
+  margin-block: 12px;
+}
+
+.input:hover {
+  background-color: #f9f9f9;
+  border-width: 1px;
+}
+
+.input:focus {
+  border-width: 1px;
+  border-color: #2e9cca;
+  background-color: #f9f9f9;
+}
