@@ -9,13 +9,15 @@ import * as firebase from "firebase";
 import router from "next/router";
 import { IconButton } from "@material-ui/core";
 
-export default function Register() {
+export default function Authentication() {
   const [nickname, setNickname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [activeImage, setActiveImage] = useState<string>("");
+  const [pageStatus, setPageStatus] = useState<boolean>(false);
+
   const images = [
     "https://i.pinimg.com/originals/e3/dc/ab/e3dcab0829e56f4f1c9d58099f080de9.png",
     "https://i.pinimg.com/originals/76/f2/3e/76f23ef08dc1ebabf4589ca0daa1fc14.jpg",
@@ -31,33 +33,59 @@ export default function Register() {
     }, 10000);
   }, []);
 
-  const register = async () => {
+  const authenticate = async () => {
     setLoading(true);
-    try {
-      let result = await firebase.default
-        .auth()
-        .createUserWithEmailAndPassword(email.trim(), password.trim());
-      await firebase.default
-        .firestore()
-        .collection("users")
-        .doc(result.user.uid)
-        .set({
-          nickname: nickname,
-          online: true,
-          description: "Default Description",
-          email: email.trim(),
-          lastOnline: "",
-        });
-      setLoading(false);
-      router.back();
-    } catch (error) {
-      setMessage(error.message);
-      setLoading(false);
-      setTimeout(() => {
-        setMessage(null);
-      }, 5000);
+    if (pageStatus) {
+      try {
+        let result = await firebase.default
+          .auth()
+          .createUserWithEmailAndPassword(email.trim(), password.trim());
+        await firebase.default
+          .firestore()
+          .collection("users")
+          .doc(result.user.uid)
+          .set({
+            nickname: nickname,
+            online: true,
+            description: "Default Description",
+            email: email.trim(),
+            lastOnline: "",
+          });
+        setMessage("Sign up successfull!");
+        setTimeout(() => {
+          setMessage(null);
+          setLoading(false);
+          router.back();
+        }, 3000);
+      } catch (error) {
+        setMessage(error.message);
+        setLoading(false);
+        setTimeout(() => {
+          setMessage(null);
+        }, 5000);
+      }
+    } else {
+      try {
+        await firebase.default
+          .auth()
+          .signInWithEmailAndPassword(email.trim(), password.trim());
+        setMessage("Sign in successfull!");
+        setLoading(false);
+        setTimeout(() => {
+          setMessage(null);
+          router.back();
+        }, 3000);
+      } catch (error) {
+        setMessage(error.message);
+        setLoading(false);
+        setTimeout(() => {
+          setMessage(null);
+        }, 5000);
+      }
     }
   };
+
+  const togglePage = () => setPageStatus(!pageStatus);
   return (
     <>
       <Head>
@@ -71,15 +99,19 @@ export default function Register() {
       <div className={styles.main_div}>
         <div className={styles.form_div}>
           <span className={styles.title}>Dealm</span>
-          <span className={styles.instruction}>Create account</span>
-          <input
-            inputMode="text"
-            name="username"
-            value={nickname}
-            onChange={(event) => setNickname(event.target.value)}
-            placeholder="Nickname"
-            className={styles.input}
-          />
+          <span className={styles.instruction}>
+            {pageStatus ? "Create an account" : "Sign in"}
+          </span>
+          {pageStatus && (
+            <input
+              inputMode="text"
+              name="username"
+              value={nickname}
+              onChange={(event) => setNickname(event.target.value)}
+              placeholder="Nickname"
+              className={styles.input}
+            />
+          )}
           <input
             inputMode="email"
             name="email"
@@ -97,6 +129,12 @@ export default function Register() {
             placeholder="Password"
             className={styles.input}
           />
+          <span style={{ fontSize: 14, marginBlock: 16 }}>
+            {pageStatus ? "Have an account?" : "Don't have an account?"}{" "}
+            <span className="link" onClick={togglePage}>
+              {pageStatus ? "Sign in" : "Sign up"}
+            </span>
+          </span>
           <button
             className="custom_button"
             style={{
@@ -104,7 +142,7 @@ export default function Register() {
               cursor: loading ? "not-allowed" : "pointer",
               opacity: loading ? 0.8 : 1,
             }}
-            onClick={register}
+            onClick={authenticate}
             disabled={loading}>
             <MdCheck
               color={colors.text}

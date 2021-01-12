@@ -85,6 +85,13 @@ a {
   border-color: #1587bf;
 }
 
+.link {
+  color: #1587bf;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 700px) {
   .follow_button {
     display: none;
