@@ -33,6 +33,21 @@
   filter: brightness(1.1);
 }
 
+.profile_button_background {
+  background-color: #e0e0e0;
+  padding: 4px;
+  border-radius: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: #656565 solid 1px;
+}
+
+.profile_button_background:active {
+  background-color: #d5d5d5;
+}
+
 @media only screen and (max-width: 1100px) {
   .header {
     padding-inline: 2vw;

@@ -6,9 +6,20 @@ import { useRouter } from "next/router";
 import { RiHomeLine, RiHomeFill } from "react-icons/ri";
 import { BsPersonFill, BsPerson } from "react-icons/bs";
 import { ImSearch } from "react-icons/im";
+import { useEffect, useState } from 'react';
+import * as firebase from 'firebase';
 
 export default function Header() {
   const router = useRouter();
+  const [user, setUser] = useState<firebase.default.User | null>(null);
+  const fetchUser = async () => {
+    let result: firebase.default.User = await firebase.default.auth().currentUser;
+    setUser(result);
+  }
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   return (
     <div className={styles.header} style={{ backgroundColor: colors.surface }}>
       <span style={{ fontSize: 24, color: colors.text }}>Dealm</span>
@@ -70,7 +81,7 @@ export default function Header() {
             </a>
           </Link>
         </div>
-        <div style={{ height: 24 }}>
+        <div style={{ height: 24, marginRight: 21 }}>
           <Link href="/search">
             <a>
               <Search
@@ -78,6 +89,17 @@ export default function Header() {
                 className={styles.header_button}
               />
             </a>
+          </Link>
+        </div>
+        <div style={{ height: 24 }}>
+          <Link href={user ? "/profile/" + user.uid : "/authentication"}>
+            <a className={styles.profile_button_background}>
+            <BsPerson
+              color={colors.text}
+              size={18}
+              className={styles.header_button}
+            />
+          </a>
           </Link>
         </div>
       </div>

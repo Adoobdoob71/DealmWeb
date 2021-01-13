@@ -10,14 +10,15 @@ import { colors } from "../../styles/colors";
 import { useState } from "react";
 import PostCard from "../../components/postCard";
 import PostSmall from "../../components/postSmall";
-import { app } from "../_app";
+import * as firebase from 'firebase';
+import { Router } from 'next/router';
+import { User } from '../../interfaces';
 
-export default function Profile() {
+export default function Profile(props: User) {
   const [tab, setTab] = useState<string>("posts");
   const router = useRouter();
   const { id } = router.query;
   const toggleTab = () => setTab("posts");
-  // console.log(app.allUsers);
   return (
     <>
       <Head>
@@ -27,12 +28,13 @@ export default function Profile() {
       <div className={styles.mainDiv}>
         <div className={styles.top}>
           <img
-            src="https://images4.alphacoders.com/100/thumb-350-1008904.png"
+            // src="https://images4.alphacoders.com/100/thumb-350-1008904.png"
+            src={props.profilePicture ? props.profilePicture : "https://images4.alphacoders.com/100/thumb-350-1008904.png"}
             className={styles.profile_image}
           />
           <div className={styles.user_box}>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <span className={styles.nickname}>DoritoWizard</span>
+              <span className={styles.nickname}>{props.nickname}</span>
               <span
                 className="custom_button"
                 style={{ marginLeft: 8, padding: 2, height: 20 }}>
@@ -40,7 +42,7 @@ export default function Profile() {
               </span>
             </div>
             <span className={styles.description}>
-              I like to program and watch movies
+              {props.description}
             </span>
           </div>
           <div className={styles.follow_details}>
@@ -83,4 +85,14 @@ export default function Profile() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  let result = await firebase.default.firestore().collection("users").doc(context.params.id).get();
+  let user: User = result.data() as User;
+  return {
+    props: {
+      ...user
+    }
+  }
 }

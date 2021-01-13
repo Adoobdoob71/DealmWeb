@@ -1,8 +1,6 @@
 .main_div {
   margin-inline: 12vw;
   border-radius: 10px;
-  align-self: center;
-  justify-self: center;
   display: flex;
   background-color: #ffffff;
   flex-direction: row;
@@ -15,7 +13,7 @@
 
 .form_div {
   flex: 1;
-  padding-block: 7.5%;
+  padding-block: 15%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -76,4 +74,50 @@
 
 .input:focus {
   border-color: #25274d;
+}
+
+.back_button {
+  margin-inline: 12vw;
+}
+
+@media only screen and (max-width: 1100px) {
+  .main_div {
+    margin-inline: 8px;
+  }
+  .back_button {
+    margin-inline: 24px;
+  }
+  .input {
+    font-size: 14px;
+  }
+  .title {
+    font-size: 21px;
+  }
+  .motto_text {
+    font-size: 16px;
+  }
+  .bottom_text {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .input {
+    font-size: 10px;
+  }
+  .motto_text {
+    font-size: 14px;
+  }
+  .bottom_text {
+    font-size: 14px;
+  }
+  .form_div {
+    flex: 2;
+  }
+}
+
+@media only screen and (max-height: 750px) {
+  .form_div {
+    padding-block: 10%;
+  }
 }

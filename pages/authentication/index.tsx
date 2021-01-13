@@ -55,7 +55,7 @@ export default function Authentication() {
         setTimeout(() => {
           setMessage(null);
           setLoading(false);
-          router.back();
+          router.push("/");
         }, 3000);
       } catch (error) {
         setMessage(error.message);
@@ -73,7 +73,7 @@ export default function Authentication() {
         setLoading(false);
         setTimeout(() => {
           setMessage(null);
-          router.back();
+          router.push("/");
         }, 3000);
       } catch (error) {
         setMessage(error.message);
@@ -91,12 +91,8 @@ export default function Authentication() {
       <Head>
         <title>Registration</title>
       </Head>
-      <IconButton
-        onClick={() => router.back()}
-        style={{ marginBlock: 24, marginInline: "12vw" }}>
-        <MdChevronLeft color={colors.text} size={24} />
-      </IconButton>
-      <div className={styles.main_div}>
+      <div style={{ display: "flex", flexDirection: "column", height: "100%", width: "100%", justifyContent: "center" }}>
+        <div className={styles.main_div}>
         <div className={styles.form_div}>
           <span className={styles.title}>Dealm</span>
           <span className={styles.instruction}>
@@ -160,6 +156,7 @@ export default function Authentication() {
           <span className={styles.bottom_text}>Developed by Elad Mekonen</span>
         </div>
         {message && <span className="alert_message">{message}</span>}
+      </div>
       </div>
     </>
   );

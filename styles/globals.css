@@ -2,9 +2,15 @@ html,
 body {
   padding: 0;
   margin: 0;
+  height: 100%;
   background-color: #f4f4f4;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+#__next {
+  height: 100%;
+  width: 100%;
 }
 
 a {
@@ -39,7 +45,7 @@ a {
 }
 
 .custom_button:active {
-  background-color: #d8d8d8;
+  background-color: #d5d5d5;
 }
 
 .follow_button {
