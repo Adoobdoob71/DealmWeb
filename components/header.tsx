@@ -7,14 +7,26 @@ import { RiHomeLine, RiHomeFill } from "react-icons/ri";
 import { BsPersonFill, BsPerson } from "react-icons/bs";
 import { ImSearch } from "react-icons/im";
 import { useEffect, useState } from 'react';
+import { Modal, Popover } from '@material-ui/core';
 import * as firebase from 'firebase';
+import { User } from '../interfaces';
 
 export default function Header() {
   const router = useRouter();
   const [user, setUser] = useState<firebase.default.User | null>(null);
+  const [userDetails, setUserDetails] = useState<User | null>(null);
+  const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
+  const [showCreatePostWindow, setShowCreatePostWindow] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
   const fetchUser = async () => {
     let result: firebase.default.User = await firebase.default.auth().currentUser;
     setUser(result);
+    if (result != null){
+      let data = await firebase.default.firestore().collection("users").doc(result.uid).get();
+      let processedData = data.data() as User;
+      setUserDetails(processedData);
+    }
   }
   useEffect(() => {
     fetchUser();
@@ -92,16 +104,56 @@ export default function Header() {
           </Link>
         </div>
         <div style={{ height: 24 }}>
-          <Link href={user ? "/profile/" + user.uid : "/authentication"}>
-            <a className={styles.profile_button_background}>
+          <a className={styles.profile_button_background} onClick={event => {
+            setAnchorEl(event.currentTarget);
+            setShowUserMenu(true);
+          }}>
             <BsPerson
               color={colors.text}
               size={18}
               className={styles.header_button}
             />
           </a>
-          </Link>
         </div>
+        <Popover
+          open={showUserMenu}
+          anchorEl={anchorEl}
+          onClose={() => {
+            setAnchorEl(null);
+            setShowUserMenu(false);
+          }}>
+          <div className={styles.menu_popup}>
+            {userDetails ? (
+              <Link href={"/profile/" + user.uid}>
+                <a>
+                  <div className={styles.user_box}>
+                    <img src={userDetails.profilePicture} className={styles.user_box_profile_picture} />
+                    <div className={styles.user_box_user_data}>
+                      <span className={styles.user_box_nickname}>{userDetails.nickname}</span>
+                      <span className={styles.user_box_description}>{userDetails.description}</span>
+                    </div>
+                  </div>
+                </a>
+              </Link>  
+              ) : (
+                <div style={{ padding: 10 }}>
+                  <span>Signed out</span>
+                </div>
+            )}
+            <div className={styles.menu_options}>
+              <div className={styles.menu_options_button}>
+                <span className={styles.menu_options_button_text}>Settings</span>
+              </div>
+              <Link href={user ? "/" : "/authentication"}>
+                <a>
+                  <div className={styles.menu_options_button}>
+                    <span className={styles.menu_options_button_text}>{user ? "Sign out" : "Sign in"}</span>
+                  </div>
+                </a>
+              </Link>
+            </div>    
+          </div>
+        </Popover>
       </div>
     </div>
   );

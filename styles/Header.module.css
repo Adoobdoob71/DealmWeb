@@ -48,6 +48,74 @@
   background-color: #d5d5d5;
 }
 
+.menu_popup {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.user_box {
+  display: flex;
+  flex-direction: row;
+  padding-inline: 12px;
+  padding-block: 10px;
+}
+
+.user_box_profile_picture {
+  width: 2vw;
+  height: 2vw;
+  border-radius: 1vw;
+}
+
+.user_box_user_data {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 10px;
+}
+
+.user_box_nickname {
+  font-size: 1vw;
+  color: #000000;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.user_box_description {
+  font-size: 0.8vw;
+  color: #000000;
+}
+
+.menu_options {
+  display: flex;
+  flex-direction: row;
+  /*border-top: 0.5px solid #959595;*/
+}
+
+.menu_options_button {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  user-select: none;
+}
+
+.menu_options_button:hover {
+  background-color: #f2f2f2;
+}
+
+.menu_options_button:active {
+  background-color: #f0f0f0;
+}
+
+.menu_options_button_text {
+  font-size: 1vw;
+  color: #000000;
+  font-weight: bold;
+}
+
 @media only screen and (max-width: 1100px) {
   .header {
     padding-inline: 2vw;
