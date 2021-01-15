@@ -33,9 +33,15 @@
   filter: brightness(1.1);
 }
 
+.profile_picture {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+}
+
 .profile_button_background {
   background-color: #e0e0e0;
-  padding: 4px;
+  padding: 1px;
   border-radius: 13px;
   display: flex;
   justify-content: center;

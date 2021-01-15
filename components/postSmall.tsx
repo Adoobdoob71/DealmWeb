@@ -4,9 +4,24 @@ import { useState } from "react";
 import { Favorite, FavoriteBorder, MoreVert } from "@material-ui/icons";
 import { colors } from "../styles/colors";
 import styles from "../styles/PostSmall.module.css";
+import { Post } from "../interfaces";
+import * as firebase from "firebase";
 
-export default function PostSmall() {
+export default function PostSmall(props: Post) {
   const [liked, setLiked] = useState<boolean>(false);
+
+  const timestamp = () => {
+    let differenceInMins =
+      (firebase.default.firestore.Timestamp.now().toMillis() -
+        props.time.toMillis()) /
+      60000;
+    let smallerThan60: boolean = differenceInMins < 60;
+    let smallerThan1400: boolean = differenceInMins < 1440;
+    if (smallerThan60) return differenceInMins.toFixed(0) + " mins ago";
+    if (smallerThan1400)
+      return (differenceInMins / 60).toFixed(0) + " hours ago";
+    return (differenceInMins / 1440).toFixed(0) + " days ago";
+  };
   return (
     <div className={styles.main_div}>
       {/* <img
@@ -15,8 +30,8 @@ export default function PostSmall() {
       /> */}
       <div className={styles.post_content}>
         <div className={styles.post_details}>
-          <span className={styles.title}>Why I love pizza</span>
-          <span className={styles.timestamp}>34 mins ago</span>
+          <span className={styles.title}>{props.title}</span>
+          <span className={styles.timestamp}>{timestamp()}</span>
           <div style={{ flex: 1 }}></div>
           <IconButton onClick={() => setLiked(!liked)}>
             {liked ? (
@@ -29,17 +44,7 @@ export default function PostSmall() {
             <MoreVert htmlColor={colors.text} fontSize="small" />
           </IconButton>
         </div>
-        <span className={styles.body}>
-          Pizza is a delicious snack to finish your day after hard work, I
-          really recommend it if you haven't tried it alreadyPizza is a
-          delicious snack to finish your day after hard work, I really recommend
-          it if you haven't tried it alreadyPizza is a delicious snack to finish
-          your day after hard work, I really recommend it if you haven't tried
-          it alreadyPizza is a delicious snack to finish your day after hard
-          work, I really recommend it if you haven't tried it alreadyPizza is a
-          delicious snack to finish your day after hard work, I really recommend
-          it if you haven't tried it already
-        </span>
+        <span className={styles.body}>{props.body}</span>
         <span
           className={styles.likes}
           style={{ color: liked ? colors.like : undefined, marginTop: 8 }}>

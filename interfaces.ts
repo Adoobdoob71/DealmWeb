@@ -10,6 +10,24 @@ interface User {
 	lastOnline?: firebase.default.firestore.Timestamp;
 }
 
+
+interface Contact {
+	userUID: string;
+	roomID: string;
+}
+
+interface Post {
+  userUID: string;
+  title: string;
+  body: string;
+	imageUrl?: string;
+	nickname: string;
+	profilePicture?: string;
+	time: firebase.default.firestore.Timestamp;
+}
+
 export type {
-	User
+	User,
+	Contact,
+	Post
 }

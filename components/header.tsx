@@ -104,20 +104,29 @@ export default function Header() {
           </Link>
         </div>
         <div style={{ height: 24 }}>
-          <a className={styles.profile_button_background} onClick={event => {
+          <a className={styles.profile_button_background} style={{ padding: userDetails ? 0 : 4 }} onClick={event => {
             setAnchorEl(event.currentTarget);
             setShowUserMenu(true);
           }}>
-            <BsPerson
-              color={colors.text}
-              size={18}
-              className={styles.header_button}
-            />
+            {userDetails ? (
+              <img 
+                src={userDetails.profilePicture}
+                className={styles.header_button}
+                style={{ width: 24, height: 24, borderRadius: 12 }}
+              />        
+            ) : (
+              <BsPerson
+                color={colors.text}
+                size={18}
+                className={styles.header_button}
+              />
+            )}
           </a>
         </div>
         <Popover
           open={showUserMenu}
           anchorEl={anchorEl}
+          style={{ marginTop: 26 }}
           onClose={() => {
             setAnchorEl(null);
             setShowUserMenu(false);
@@ -127,7 +136,6 @@ export default function Header() {
               <Link href={"/profile/" + user.uid}>
                 <a>
                   <div className={styles.user_box}>
-                    <img src={userDetails.profilePicture} className={styles.user_box_profile_picture} />
                     <div className={styles.user_box_user_data}>
                       <span className={styles.user_box_nickname}>{userDetails.nickname}</span>
                       <span className={styles.user_box_description}>{userDetails.description}</span>
@@ -141,11 +149,15 @@ export default function Header() {
                 </div>
             )}
             <div className={styles.menu_options}>
-              <div className={styles.menu_options_button}>
-                <span className={styles.menu_options_button_text}>Settings</span>
-              </div>
-              <Link href={user ? "/" : "/authentication"}>
+              <Link href="/settings">
                 <a>
+                  <div className={styles.menu_options_button}>
+                    <span className={styles.menu_options_button_text}>Settings</span>
+                  </div>
+                </a>
+              </Link>
+              <Link href={user ? "" : "/authentication"}>
+                <a onClick={() => firebase.default.auth().signOut()}>
                   <div className={styles.menu_options_button}>
                     <span className={styles.menu_options_button_text}>{user ? "Sign out" : "Sign in"}</span>
                   </div>
