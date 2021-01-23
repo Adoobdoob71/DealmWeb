@@ -78,9 +78,9 @@ export default class SideBar extends Component<any, state> {
           </IconButton>
         </div>
         <div className={styles.middle}>
-          {this.state.recommendedUsers.map((item, index) => (
+          {/* {this.state.recommendedUsers.map((item, index) => (
             <SideBarItem {...item} key={index} />
-          ))}
+          ))} */}
         </div>
         <div className={styles.bottom} onClick={this.fetchRecommendedUsers}>
           <span className={styles.show_more}>Reload</span>
