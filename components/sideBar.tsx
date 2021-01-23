@@ -3,14 +3,14 @@ import { MoreVert } from "@material-ui/icons";
 import Link from "next/link";
 import styles from "../styles/SideBar.module.css";
 import { colors } from "../styles/colors";
-import SideBarItem from "./sideBarItem";
+import SideBarItem, { SideBarItemProps } from "./sideBarItem";
 import * as firebase from "firebase";
 import { useState, useEffect, Component } from "react";
 import { User, Contact } from "../interfaces";
 
 interface state {
   loading: boolean;
-  recommendedUsers: User[];
+  recommendedUsers: SideBarItemProps[];
 }
 export default class SideBar extends Component<any, state> {
   constructor(props: any) {
@@ -51,7 +51,8 @@ export default class SideBar extends Component<any, state> {
             .collection("users")
             .doc(item_two.data().userUID)
             .get();
-          const friendOfFriend = friendOfFriendData.data() as User;
+          const friendOfFriend = friendOfFriendData.data() as SideBarItemProps;
+          friendOfFriend.roomID = item_two.data().roomID;
           if (friendOfFriend.userUID === user.uid) return;
           this.setState({
             recommendedUsers: [...this.state.recommendedUsers, friendOfFriend],
@@ -78,9 +79,9 @@ export default class SideBar extends Component<any, state> {
           </IconButton>
         </div>
         <div className={styles.middle}>
-          {/* {this.state.recommendedUsers.map((item, index) => (
-            <SideBarItem {...item} key={index} />
-          ))} */}
+          {this.state.recommendedUsers.map((item, index) => (
+            <SideBarItem {...item} key={index} linkToProfile={true} />
+          ))}
         </div>
         <div className={styles.bottom} onClick={this.fetchRecommendedUsers}>
           <span className={styles.show_more}>Reload</span>

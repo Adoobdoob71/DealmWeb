@@ -13,7 +13,7 @@
 
 .form_div {
   flex: 1;
-  padding-block: 15%;
+  padding-block: 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -65,7 +65,7 @@
   border-bottom: 1.5px solid #959595;
   padding-inline: 10px;
   padding-block: 8px;
-  margin-block: 12px;
+  margin-block: 18px;
 }
 
 .input:hover {
@@ -114,10 +114,13 @@
   .form_div {
     flex: 2;
   }
+  .picture_div {
+    display: none;
+  }
 }
 
 @media only screen and (max-height: 750px) {
   .form_div {
-    padding-block: 10%;
+    padding-block: 15%;
   }
 }

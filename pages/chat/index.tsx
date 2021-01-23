@@ -18,6 +18,8 @@ interface state {
   activeContactUID: string | null;
   activeContactUserDetails: User | null;
   messages: firebase.default.firestore.QueryDocumentSnapshot<MessageProps>[];
+  text: string;
+  userDetails: User | null;
 }
 
 export default class Chat extends React.Component<any, state> {
@@ -29,6 +31,8 @@ export default class Chat extends React.Component<any, state> {
       activeContactUID: null,
       messages: [],
       activeContactUserDetails: null,
+      text: "",
+      userDetails: null,
     };
   }
 
@@ -80,7 +84,34 @@ export default class Chat extends React.Component<any, state> {
     this.messageHandler();
   };
 
+  loadUserDetails = async () => {
+    let user = await firebase.default.auth().currentUser;
+    let result = await firebase.default
+      .firestore()
+      .collection("users")
+      .doc(user.uid)
+      .get();
+    this.setState({ userDetails: result.data() as User });
+  };
+  sendMessage = async () => {
+    let message: MessageProps = {
+      text: this.state.text,
+      time: firebase.default.firestore.Timestamp.now(),
+      userUID: this.state.userDetails.userUID,
+      nickname: this.state.userDetails.nickname,
+      profilePicture: this.state.userDetails.profilePicture,
+    };
+    await firebase.default
+      .firestore()
+      .collection("rooms")
+      .doc(this.state.activeContactRoomID)
+      .collection("messages")
+      .add(message);
+    this.setState({ text: "" });
+  };
+
   componentDidMount() {
+    this.loadUserDetails();
     this.loadContacts();
   }
 
@@ -144,16 +175,26 @@ export default class Chat extends React.Component<any, state> {
                 )}
               </div>
               <div className={styles.chat_window_bottom}>
-                <a style={{ display: "flex", alignItems: "center" }}>
+                {/* <a style={{ display: "flex", alignItems: "center" }}>
                   <GrAttachment color={colors.accent} size={16} />
-                </a>
+                </a> */}
                 <input
                   type="text"
                   className={styles.chat_window_text_box}
                   placeholder="Say something..."
+                  value={this.state.text}
+                  onChange={(event) =>
+                    this.setState({ text: event.target.value })
+                  }
                 />
-                <a style={{ display: "flex", alignItems: "center" }}>
-                  <MdSend color={colors.primary} size={16} />
+                <a
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                  }}
+                  onClick={this.sendMessage}>
+                  <MdSend color={colors.primary} size={18} />
                 </a>
               </div>
             </div>

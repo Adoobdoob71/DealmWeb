@@ -6,6 +6,8 @@ interface MessageProps {
   text: string;
   imageUrl?: string;
   time: firebase.default.firestore.Timestamp;
+  nickname?: string;
+  profilePicture?: string;
 }
 
 export default function MessageItem(props: MessageProps) {
