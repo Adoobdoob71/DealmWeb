@@ -13,7 +13,7 @@ interface state {
   recommendedUsers: User[];
 }
 export default class SideBar extends Component<any, state> {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.state = {
       loading: false,

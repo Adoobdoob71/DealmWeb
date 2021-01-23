@@ -7,8 +7,12 @@ import { Component } from "react";
 import * as firebase from "firebase";
 import { User, Contact, Post } from "../interfaces";
 
-export default class Home extends Component {
-  constructor(props) {
+interface state {
+  posts: firebase.default.firestore.QueryDocumentSnapshot<Post>[];
+}
+
+export default class Home extends Component<any, state> {
+  constructor(props: any) {
     super(props);
     this.state = {
       posts: [],
