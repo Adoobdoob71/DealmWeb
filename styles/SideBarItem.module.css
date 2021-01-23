@@ -5,6 +5,7 @@
   padding-inline: 8px;
   padding-block: 10px;
   user-select: none;
+  cursor: pointer;
 }
 
 .side_bar_item:hover {

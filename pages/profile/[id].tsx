@@ -13,8 +13,13 @@ import * as firebase from "firebase";
 import { withRouter } from "next/router";
 import { User, Post } from "../../interfaces";
 
-class Profile extends Component {
-  constructor(props) {
+interface state {
+  posts: firebase.default.firestore.QueryDocumentSnapshot<Post>[];
+  tab: string;
+}
+
+class Profile extends Component<any, state> {
+  constructor(props: any) {
     super(props);
     this.state = {
       // posts: props.posts_array,
@@ -46,6 +51,13 @@ class Profile extends Component {
       <>
         <Head>
           <title>{this.props.nickname}'s Profile</title>
+          <meta property="og:title" content="Dealm" />
+          <meta
+            property="og:title"
+            content={this.props.nickname + "'s Profile"}
+          />
+          <meta property="og:url" content="" />
+          <meta property="og:image" content={this.props.profilePicture} />
         </Head>
         <Header />
         <div className={styles.mainDiv}>
